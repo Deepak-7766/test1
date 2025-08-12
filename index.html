@@ -1,11 +1,261 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registration Form</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --accent: #4f46e5;
+      --muted: #6b7280;
+      --danger: #dc2626;
+    }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #e9eefb 60%);
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: var(--card);
+      width: 100%;
+      max-width: 760px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(20,20,50,0.08);
+      padding: 28px;
+    }
+    h1 {
+      margin: 0 0 14px 0;
+      font-size: 1.4rem;
+      color: #0f172a;
+    }
+    p.lead {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 18px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .full { grid-column: 1 / -1; }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #e6edf6;
+      background: #fff;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .small {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+      grid-column: 1 / -1;
+    }
+    button {
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(79,70,229,0.12);
+    }
+    button.secondary {
+      background: transparent;
+      color: #0f172a;
+      border: 1px solid #e6edf6;
+      box-shadow: none;
+    }
+    .error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 6px;
+    }
+    @media (max-width: 720px) {
+      form { grid-template-columns: 1fr; }
+      .actions { justify-content: stretch; flex-direction: column-reverse; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+  <main class="card" role="main">
+    <h1>Create an account</h1>
+    <p class="lead">Quick and simple registration form. Fields marked with * are required.</p>
+
+    <form id="regForm" action="#" method="POST" novalidate>
+      <div>
+        <label for="firstName">First name *</label>
+        <input id="firstName" name="firstName" type="text" required minlength="2" placeholder="Jane" />
+      </div>
+
+      <div>
+        <label for="lastName">Last name *</label>
+        <input id="lastName" name="lastName" type="text" required minlength="1" placeholder="Doe" />
+      </div>
+
+      <div>
+        <label for="email">Email address *</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com" />
+      </div>
+
+      <div>
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" pattern="^\+?\d{7,15}$" />
+        <div class="small">Optional — international format preferred (7–15 digits).</div>
+      </div>
+
+      <div>
+        <label for="password">Password *</label>
+        <input id="password" name="password" type="password" required minlength="8" placeholder="At least 8 characters" />
+      </div>
+
+      <div>
+        <label for="confirmPassword">Confirm password *</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required minlength="8" placeholder="Re-enter password" />
+      </div>
+
+      <div class="full">
+        <label>Gender</label>
+        <div class="row">
+          <label><input type="radio" name="gender" value="female" /> Female</label>
+          <label><input type="radio" name="gender" value="male" /> Male</label>
+          <label><input type="radio" name="gender" value="other" /> Other</label>
+          <label><input type="radio" name="gender" value="prefer-not" checked /> Prefer not to say</label>
+        </div>
+      </div>
+
+      <div>
+        <label for="dob">Date of birth</label>
+        <input id="dob" name="dob" type="date" />
+      </div>
+
+      <div>
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="">Select country</option>
+          <option>India</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Australia</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label>Skills</label>
+        <div class="row">
+          <label><input type="checkbox" name="skills" value="html" /> HTML</label>
+          <label><input type="checkbox" name="skills" value="css" /> CSS</label>
+          <label><input type="checkbox" name="skills" value="js" /> JavaScript</label>
+          <label><input type="checkbox" name="skills" value="java" /> Java</label>
+        </div>
+      </div>
+
+       <div class="full">
+        <label for="bio">About you</label>
+        <textarea id="bio" name="bio" placeholder="Short bio (optional)"></textarea>
+      </div>
+
+      <div>
+        <label for="avatar">Profile picture</label>
+        <input id="avatar" name="avatar" type="file" accept="image/*" />
+      </div>
+
+      <div>
+        <label for="agree" class="full">
+          <input id="agree" name="agree" type="checkbox" required />
+          I agree to the <a href="#" aria-label="terms" tabindex="0">terms and conditions</a>. *
+        </label>
+      </div>
+
+      <div class="full">
+        <label><input type="checkbox" id="showPass" /> Show passwords</label>
+        <div id="pwError" class="error" aria-live="polite" style="display:none;"></div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Register</button>
+        <button type="button" class="secondary" onclick="document.getElementById('regForm').reset()">Reset</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    // Small client-side behavior: password match and show/hide
+    const form = document.getElementById('regForm');
+    const pw = document.getElementById('password');
+    const cpw = document.getElementById('confirmPassword');
+    const pwError = document.getElementById('pwError');
+    const showPass = document.getElementById('showPass');
+
+    showPass.addEventListener('change', () => {
+      const type = showPass.checked ? 'text' : 'password';
+      pw.type = cpw.type = type;
+    });
+
+    function passwordsMatch() {
+      if (!pw.value && !cpw.value) return true; // handled by required/minlength
+      return pw.value === cpw.value;
+    }
+
+    form.addEventListener('submit', (e) => {
+      pwError.style.display = 'none';
+      pwError.textContent = '';
+
+      // HTML5 validation first
+      if (!form.checkValidity()) {
+        // Let browser show built-in messages
+        return;
+      }
+
+      // Custom: ensure passwords match
+      if (!passwordsMatch()) {
+        e.preventDefault();
+        pwError.style.display = 'block';
+        pwError.textContent = 'Passwords do not match. Please re-enter.';
+        cpw.focus();
+        return;
+      }
+
+      // If you want to actually submit: remove the next line
+      e.preventDefault();
+      alert('Form validated! (This demo prevents actual submission.)\nReplace the script to send data to your server.');
+    });
+  </script>
 </body>
 </html>
